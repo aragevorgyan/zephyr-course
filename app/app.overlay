@@ -1,0 +1,10 @@
+/*
+ * Heartbeat LED for this application.
+ * app-led follows the board's led0 node, so the same overlay works on any
+ * board that provides the standard led0 label.
+ */
+/ {
+	aliases {
+		app-led = &led0;
+	};
+};
