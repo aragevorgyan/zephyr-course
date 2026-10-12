@@ -1,0 +1,11 @@
+/*
+ * On-board LED used by the our,driver sensor.
+ * native_sim wires led0 to gpio0 pin 0, active high.
+ */
+/ {
+	led_sensor: led_sensor {
+		compatible = "our,driver";
+		gpios = <&gpio0 0 GPIO_ACTIVE_HIGH>;
+		status = "okay";
+	};
+};

@@ -1,0 +1,11 @@
+description: On-board LED exposed through the sensor API.
+
+compatible: "our,driver"
+
+include: base.yaml
+
+properties:
+  gpios:
+    type: phandle-array
+    required: true
+    description: GPIO specifier for the LED. Active level turns the LED on.
