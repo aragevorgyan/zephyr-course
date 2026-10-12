@@ -1,3 +1,5 @@
+#include <our_drivers/our_driver.h>
+
 #include <zephyr/device.h>
 #include <zephyr/drivers/sensor.h>
 #include <zephyr/kernel.h>
@@ -15,6 +17,11 @@ int main(void)
 		return 0;
 	}
 
+	if (our_driver_set_level(dev, 42) < 0) {
+		LOG_ERR("set level failed");
+		return 0;
+	}
+
 	while (1) {
 		if (sensor_sample_fetch(dev) < 0) {
 			LOG_ERR("sample fetch failed");
@@ -28,7 +35,7 @@ int main(void)
 			return 0;
 		}
 
-		LOG_INF("channel value %d", val.val1);
+		LOG_INF("channel value %d, level %d", val.val1, val.val2);
 		k_msleep(500);
 	}
 

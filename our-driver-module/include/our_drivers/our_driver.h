@@ -9,5 +9,9 @@
 #define OUR_DRIVERS_OUR_DRIVER_H_
 
 #include <zephyr/device.h>
+#include <stdint.h>
+
+/* Store a caller-chosen level in the driver's runtime data. */
+int our_driver_set_level(const struct device *dev, int32_t level);
 
 #endif /* OUR_DRIVERS_OUR_DRIVER_H_ */

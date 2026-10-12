@@ -15,6 +15,7 @@ struct our_driver_config {
 
 struct our_driver_data {
 	bool is_on;
+	int32_t level;
 };
 
 static int our_driver_sample_fetch(const struct device *dev,
@@ -47,7 +48,7 @@ static int our_driver_channel_get(const struct device *dev,
 	ARG_UNUSED(chan);
 
 	val->val1 = data->is_on ? 1 : 0;
-	val->val2 = 0;
+	val->val2 = data->level;
 
 	ret = gpio_pin_set_dt(&cfg->gpio, 0);
 	if (ret < 0) {
@@ -56,6 +57,15 @@ static int our_driver_channel_get(const struct device *dev,
 
 	data->is_on = false;
 	LOG_INF("LED off");
+	return 0;
+}
+
+int our_driver_set_level(const struct device *dev, int32_t level)
+{
+	struct our_driver_data *data = dev->data;
+
+	data->level = level;
+	LOG_INF("level set to %d", level);
 	return 0;
 }
 
@@ -80,6 +90,7 @@ static int our_driver_init(const struct device *dev)
 	}
 
 	data->is_on = false;
+	data->level = 0;
 	return 0;
 }
 
